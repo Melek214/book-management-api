@@ -134,3 +134,4 @@
 /Users/melek/RiderProjects/BookManagement/obj/Debug/net9.0/BookManagement.API.pdb
 /Users/melek/RiderProjects/BookManagement/obj/Debug/net9.0/BookManagement.API.genruntimeconfig.cache
 /Users/melek/RiderProjects/BookManagement/obj/Debug/net9.0/ref/BookManagement.API.dll
+/Users/melek/RiderProjects/BookManagement/obj/Debug/net9.0/BookManagement.API.sourcelink.json

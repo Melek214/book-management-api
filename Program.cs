@@ -1,5 +1,8 @@
 using BookManagement.API.Data;
 using Microsoft.EntityFrameworkCore;
+using BookManagement.API.Services.Interfaces;
+using BookManagement.API.Services.Implementations;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,8 @@ builder.Services.AddControllers()
 // Swagger (API test arayüzü)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IBookService, BookService>();
+
 
 var app = builder.Build();
 
