@@ -36,19 +36,30 @@ namespace BookManagement.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBook([FromBody] BookCreateDto dto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var createdBook = await _bookService.CreateBookAsync(dto);
             return Ok(ApiResponse<BookResponseDto>.Ok(createdBook, "Book created successfully"));
+            
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBook(int id, [FromBody] BookUpdateDto dto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
             var updatedBook = await _bookService.UpdateBookAsync(id, dto);
-
             if (updatedBook == null)
                 return NotFound(ApiResponse<string>.Fail("Book not found"));
 
             return Ok(ApiResponse<BookResponseDto>.Ok(updatedBook, "Book updated successfully"));
+            
+            
         }
 
         [HttpDelete("{id}")]
@@ -60,5 +71,6 @@ namespace BookManagement.API.Controllers
 
             return Ok(ApiResponse<string>.Ok("Book deleted successfully"));
         }
+
     }
 }

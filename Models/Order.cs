@@ -1,16 +1,13 @@
-using System;
 using System.Collections.Generic;
 
 namespace BookManagement.API.Models
 {
     public class Order : BaseEntity
     {
-        public int UserId { get; set; }       // FK -> User
-        public User User { get; set; }        // Navigation property
+        public string CustomerName { get; set; }
+        public decimal TotalPrice { get; set; }
 
-        public DateTime OrderDate { get; set; }  // Sipariş tarihi
-
-        // İlişkiler
-        public ICollection<OrderItem> OrderItems { get; set; } // Siparişin satırları
+        // Bir siparişin birden fazla OrderItem'ı olabilir
+        public List<OrderItem> Items { get; set; } = new();
     }
 }
