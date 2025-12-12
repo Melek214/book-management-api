@@ -3,6 +3,7 @@ using System;
 using BookManagement.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookManagement.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251212212048_SeedDataClean")]
+    partial class SeedDataClean
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,7 +72,7 @@ namespace BookManagement.API.Migrations
                             Price = 150m,
                             Stock = 10,
                             Title = "Suç ve Ceza",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2025, 12, 12, 21, 20, 48, 717, DateTimeKind.Utc).AddTicks(7720)
                         },
                         new
                         {
@@ -80,7 +83,7 @@ namespace BookManagement.API.Migrations
                             Price = 120m,
                             Stock = 8,
                             Title = "Sefiller",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2025, 12, 12, 21, 20, 48, 717, DateTimeKind.Utc).AddTicks(8380)
                         });
                 });
 
@@ -110,16 +113,16 @@ namespace BookManagement.API.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2025, 12, 12, 21, 20, 48, 717, DateTimeKind.Utc).AddTicks(5490),
                             Name = "Roman",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2025, 12, 12, 21, 20, 48, 717, DateTimeKind.Utc).AddTicks(5500)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2025, 12, 12, 21, 20, 48, 717, DateTimeKind.Utc).AddTicks(5710),
                             Name = "Bilim",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2025, 12, 12, 21, 20, 48, 717, DateTimeKind.Utc).AddTicks(5720)
                         });
                 });
 

@@ -17,12 +17,40 @@ namespace BookManagement.API.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 
-        // İstersen burada Fluent API ile konfigürasyon yapabiliriz (ileride)
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Örneğin decimal için precision ayarı vb. ileride ekleyebiliriz.
+            modelBuilder.Entity<Category>().HasData(
+                new Category { Id = 1, Name = "Roman" },
+                new Category { Id = 2, Name = "Bilim" }
+            );
+
+            modelBuilder.Entity<Book>().HasData(
+                new Book
+                {
+                    Id = 1,
+                    Title = "Suç ve Ceza",
+                    Author = "Dostoyevski",
+                    Price = 150,
+                    Stock = 10,
+                    CategoryId = 1,
+                    CreatedAt = new DateTime(2025, 1, 1)
+
+                },
+                new Book
+                {
+                    Id = 2,
+                    Title = "Sefiller",
+                    Author = "Victor Hugo",
+                    Price = 120,
+                    Stock = 8,
+                    CategoryId = 1,
+                    CreatedAt = new DateTime(2025, 1, 1)
+
+                }
+            );
         }
+
     }
 }
