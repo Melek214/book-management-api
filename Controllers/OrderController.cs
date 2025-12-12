@@ -1,4 +1,5 @@
 using BookManagement.API.DTOs;
+using BookManagement.API.Models;
 using BookManagement.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,14 +20,14 @@ namespace BookManagement.API.Controllers
         public async Task<IActionResult> CreateOrder([FromBody] OrderCreateDto dto)
         {
             var result = await _orderService.CreateOrderAsync(dto);
-            return Ok(result);
+            return Ok(ApiResponse<OrderResponseDto>.Ok(result, "Order created successfully"));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllOrders()
         {
             var result = await _orderService.GetAllOrdersAsync();
-            return Ok(result);
+            return Ok(ApiResponse<List<OrderResponseDto>>.Ok(result, "Orders listed successfully"));
         }
 
         [HttpGet("{id}")]
@@ -35,9 +36,9 @@ namespace BookManagement.API.Controllers
             var result = await _orderService.GetOrderByIdAsync(id);
 
             if (result == null)
-                return NotFound("Order not found");
+                return NotFound(ApiResponse<string>.Fail("Order not found"));
 
-            return Ok(result);
+            return Ok(ApiResponse<OrderResponseDto>.Ok(result, "Order details fetched successfully"));
         }
     }
 }
