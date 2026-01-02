@@ -121,3 +121,18 @@ BookManagement.API
 👩‍💻 Geliştirici
 Melek — 2025 Güz Dönemi
 Book Management API Projesi
+
+## ⚠️ Commit Geçmişi Hakkında Bilgilendirme
+
+Proje geliştirme sürecinde commit'ler başlangıçta `main` branch üzerinde atılmıştır.
+Daha sonra istenen `main` ve `dev` branch yapısına geçiş yapılırken,
+`main` branch yalnızca ilk commit’e geri alınmıştır.
+
+Bu işlem sırasında önceki geliştirme commit’leri git geçmişinden çıkmıştır
+ve teknik olarak geri eklenememiştir.
+Bu nedenle projede yalnızca yeniden oluşturulabilen ve mevcut kod durumunu
+yansıtan commit’ler yer almaktadır.
+
+Proje geliştirme süreci boyunca uygulama; katmanlı mimari, DTO kullanımı,
+iş kuralları ve REST standartlarına uygun şekilde adım adım geliştirilmiştir.
+
