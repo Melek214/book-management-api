@@ -37,12 +37,15 @@ namespace BookManagement.API.Controllers
         public async Task<IActionResult> CreateBook([FromBody] BookCreateDto dto)
         {
             if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+                return BadRequest(ApiResponse<string>.Fail("Validation error"));
+
             var createdBook = await _bookService.CreateBookAsync(dto);
-            return Ok(ApiResponse<BookResponseDto>.Ok(createdBook, "Book created successfully"));
-            
+
+            return CreatedAtAction(
+                nameof(GetBook),
+                new { id = createdBook.Id },
+                ApiResponse<BookResponseDto>.Ok(createdBook, "Book created successfully")
+            );
         }
 
         [HttpPut("{id}")]
@@ -69,7 +72,7 @@ namespace BookManagement.API.Controllers
             if (!result)
                 return NotFound(ApiResponse<string>.Fail("Book not found"));
 
-            return Ok(ApiResponse<string>.Ok("Book deleted successfully"));
+            return NoContent();
         }
 
     }
