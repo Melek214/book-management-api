@@ -34,6 +34,10 @@ namespace BookManagement.API.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(ApiResponse<BookResponseDto>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<string>), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateBook([FromBody] BookCreateDto dto)
         {
             if (!ModelState.IsValid)
