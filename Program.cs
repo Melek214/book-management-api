@@ -43,5 +43,25 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+
+app.MapGet("/minimal/books", async (IBookService bookService) =>
+{
+    var books = await bookService.GetAllBooksAsync();
+    return Results.Ok(
+        ApiResponse<List<BookResponseDto>>.Ok(books, "Kitaplar listelendi")
+    );
+});
+
+app.MapPost("/minimal/books", async (BookCreateDto dto, IBookService bookService) =>
+{
+    var createdBook = await bookService.CreateBookAsync(dto);
+    return Results.Created(
+        $"/minimal/books/{createdBook.Id}",
+        ApiResponse<BookResponseDto>.Ok(createdBook, "Kitap oluşturuldu")
+    );
+});
+
+
+
 app.Run();
 
