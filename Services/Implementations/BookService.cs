@@ -96,7 +96,14 @@ namespace BookManagement.API.Services.Implementations
             var book = await _context.Books.FindAsync(id);
             if (book == null) return false;
 
-            _context.Books.Remove(book);
+            // ESKİ KOD (Hard Delete): _context.Books.Remove(book);
+    
+            // YENİ KOD (Soft Delete)
+            book.IsDeleted = true;
+            book.UpdatedAt = DateTime.UtcNow; // Silinme tarihini güncelleme tarihi olarak işleyebiliriz
+    
+            // Entity Framework bunu "Modified" olarak algılayıp update sorgusu atacak.
+            // QueryFilter sayesinde artık listelerde görünmeyecek.
             await _context.SaveChangesAsync();
             return true;
         }

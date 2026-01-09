@@ -57,7 +57,12 @@ namespace BookManagement.API.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                // Hataları tek bir string mesajı haline getirip standart formatta dönüyoruz
+                var errorMessage = string.Join(", ", ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage));
+                                        
+                return BadRequest(ApiResponse<string>.Fail(errorMessage));
             }
             
             var updatedBook = await _bookService.UpdateBookAsync(id, dto);
