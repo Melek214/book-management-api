@@ -4,35 +4,16 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace BookManagement.API.Migrations
 {
     /// <inheritdoc />
-    public partial class AddEntitiesAndRelations : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "CategoryId",
-                table: "Books",
-                type: "integer",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "CreatedAt",
-                table: "Books",
-                type: "timestamp with time zone",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "UpdatedAt",
-                table: "Books",
-                type: "timestamp with time zone",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
-
             migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
@@ -41,7 +22,8 @@ namespace BookManagement.API.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,11 +40,38 @@ namespace BookManagement.API.Migrations
                     PasswordHash = table.Column<string>(type: "text", nullable: false),
                     Role = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Books",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Author = table.Column<string>(type: "text", nullable: false),
+                    Stock = table.Column<int>(type: "integer", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false),
+                    CategoryId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Books", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Books_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -71,10 +80,12 @@ namespace BookManagement.API.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<int>(type: "integer", nullable: false),
-                    OrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CustomerName = table.Column<string>(type: "text", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,8 +94,7 @@ namespace BookManagement.API.Migrations
                         name: "FK_Orders_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -96,9 +106,10 @@ namespace BookManagement.API.Migrations
                     OrderId = table.Column<int>(type: "integer", nullable: false),
                     BookId = table.Column<int>(type: "integer", nullable: false),
                     Quantity = table.Column<int>(type: "integer", nullable: false),
-                    PriceAtPurchase = table.Column<decimal>(type: "numeric", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -115,6 +126,29 @@ namespace BookManagement.API.Migrations
                         principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "CreatedAt", "IsDeleted", "Name", "UpdatedAt" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2026, 1, 9, 14, 31, 28, 200, DateTimeKind.Utc).AddTicks(9410), false, "Bilim Kurgu", new DateTime(2026, 1, 9, 14, 31, 28, 200, DateTimeKind.Utc).AddTicks(9490) },
+                    { 2, new DateTime(2026, 1, 9, 14, 31, 28, 200, DateTimeKind.Utc).AddTicks(9580), false, "Dünya Klasikleri", new DateTime(2026, 1, 9, 14, 31, 28, 200, DateTimeKind.Utc).AddTicks(9580) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "CreatedAt", "IsDeleted", "PasswordHash", "Role", "UpdatedAt", "Username" },
+                values: new object[] { 1, new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(1560), false, "admin123", "Admin", new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(1560), "admin" });
+
+            migrationBuilder.InsertData(
+                table: "Books",
+                columns: new[] { "Id", "Author", "CategoryId", "CreatedAt", "IsDeleted", "Price", "Stock", "Title", "UpdatedAt" },
+                values: new object[,]
+                {
+                    { 1, "Frank Herbert", 1, new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(2090), false, 250m, 50, "Dune", new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(2090) },
+                    { 2, "Dostoyevski", 2, new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(2100), false, 180m, 100, "Suç ve Ceza", new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(2100) }
                 });
 
             migrationBuilder.CreateIndex(
@@ -136,50 +170,25 @@ namespace BookManagement.API.Migrations
                 name: "IX_Orders_UserId",
                 table: "Orders",
                 column: "UserId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Books_Categories_CategoryId",
-                table: "Books",
-                column: "CategoryId",
-                principalTable: "Categories",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Books_Categories_CategoryId",
-                table: "Books");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
-
             migrationBuilder.DropTable(
                 name: "OrderItems");
+
+            migrationBuilder.DropTable(
+                name: "Books");
 
             migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Books_CategoryId",
-                table: "Books");
-
-            migrationBuilder.DropColumn(
-                name: "CategoryId",
-                table: "Books");
-
-            migrationBuilder.DropColumn(
-                name: "CreatedAt",
-                table: "Books");
-
-            migrationBuilder.DropColumn(
-                name: "UpdatedAt",
-                table: "Books");
         }
     }
 }

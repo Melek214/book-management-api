@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookManagement.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251207185552_AddOrderEntities")]
-    partial class AddOrderEntities
+    [Migration("20260109143128_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,6 +43,9 @@ namespace BookManagement.API.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
@@ -61,6 +64,32 @@ namespace BookManagement.API.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Books");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Author = "Frank Herbert",
+                            CategoryId = 1,
+                            CreatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(2090),
+                            IsDeleted = false,
+                            Price = 250m,
+                            Stock = 50,
+                            Title = "Dune",
+                            UpdatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(2090)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Author = "Dostoyevski",
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(2100),
+                            IsDeleted = false,
+                            Price = 180m,
+                            Stock = 100,
+                            Title = "Suç ve Ceza",
+                            UpdatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(2100)
+                        });
                 });
 
             modelBuilder.Entity("BookManagement.API.Models.Category", b =>
@@ -74,6 +103,9 @@ namespace BookManagement.API.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -84,6 +116,24 @@ namespace BookManagement.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 200, DateTimeKind.Utc).AddTicks(9410),
+                            IsDeleted = false,
+                            Name = "Bilim Kurgu",
+                            UpdatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 200, DateTimeKind.Utc).AddTicks(9490)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 200, DateTimeKind.Utc).AddTicks(9580),
+                            IsDeleted = false,
+                            Name = "Dünya Klasikleri",
+                            UpdatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 200, DateTimeKind.Utc).AddTicks(9580)
+                        });
                 });
 
             modelBuilder.Entity("BookManagement.API.Models.Order", b =>
@@ -100,6 +150,9 @@ namespace BookManagement.API.Migrations
                     b.Property<string>("CustomerName")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("numeric");
@@ -130,6 +183,9 @@ namespace BookManagement.API.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("integer");
@@ -163,6 +219,9 @@ namespace BookManagement.API.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
@@ -181,6 +240,18 @@ namespace BookManagement.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(1560),
+                            IsDeleted = false,
+                            PasswordHash = "admin123",
+                            Role = "Admin",
+                            UpdatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(1560),
+                            Username = "admin"
+                        });
                 });
 
             modelBuilder.Entity("BookManagement.API.Models.Book", b =>
