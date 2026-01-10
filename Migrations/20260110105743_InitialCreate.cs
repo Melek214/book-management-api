@@ -133,22 +133,22 @@ namespace BookManagement.API.Migrations
                 columns: new[] { "Id", "CreatedAt", "IsDeleted", "Name", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2026, 1, 9, 14, 31, 28, 200, DateTimeKind.Utc).AddTicks(9410), false, "Bilim Kurgu", new DateTime(2026, 1, 9, 14, 31, 28, 200, DateTimeKind.Utc).AddTicks(9490) },
-                    { 2, new DateTime(2026, 1, 9, 14, 31, 28, 200, DateTimeKind.Utc).AddTicks(9580), false, "Dünya Klasikleri", new DateTime(2026, 1, 9, 14, 31, 28, 200, DateTimeKind.Utc).AddTicks(9580) }
+                    { 1, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), false, "Bilim Kurgu", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc) },
+                    { 2, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), false, "Dünya Klasikleri", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc) }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedAt", "IsDeleted", "PasswordHash", "Role", "UpdatedAt", "Username" },
-                values: new object[] { 1, new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(1560), false, "admin123", "Admin", new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(1560), "admin" });
+                values: new object[] { 1, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), false, "admin123", "Admin", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "admin" });
 
             migrationBuilder.InsertData(
                 table: "Books",
                 columns: new[] { "Id", "Author", "CategoryId", "CreatedAt", "IsDeleted", "Price", "Stock", "Title", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, "Frank Herbert", 1, new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(2090), false, 250m, 50, "Dune", new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(2090) },
-                    { 2, "Dostoyevski", 2, new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(2100), false, 180m, 100, "Suç ve Ceza", new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(2100) }
+                    { 1, "Frank Herbert", 1, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), false, 250m, 50, "Dune", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc) },
+                    { 2, "Dostoyevski", 2, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), false, 180m, 100, "Suç ve Ceza", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc) }
                 });
 
             migrationBuilder.CreateIndex(

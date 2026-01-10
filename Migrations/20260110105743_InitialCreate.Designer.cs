@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookManagement.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260109143128_InitialCreate")]
+    [Migration("20260110105743_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -71,24 +71,24 @@ namespace BookManagement.API.Migrations
                             Id = 1,
                             Author = "Frank Herbert",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(2090),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             IsDeleted = false,
                             Price = 250m,
                             Stock = 50,
                             Title = "Dune",
-                            UpdatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(2090)
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 2,
                             Author = "Dostoyevski",
                             CategoryId = 2,
-                            CreatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(2100),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             IsDeleted = false,
                             Price = 180m,
                             Stock = 100,
                             Title = "Suç ve Ceza",
-                            UpdatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(2100)
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
 
@@ -121,18 +121,18 @@ namespace BookManagement.API.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 200, DateTimeKind.Utc).AddTicks(9410),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             IsDeleted = false,
                             Name = "Bilim Kurgu",
-                            UpdatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 200, DateTimeKind.Utc).AddTicks(9490)
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 200, DateTimeKind.Utc).AddTicks(9580),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             IsDeleted = false,
                             Name = "Dünya Klasikleri",
-                            UpdatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 200, DateTimeKind.Utc).AddTicks(9580)
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
 
@@ -245,11 +245,11 @@ namespace BookManagement.API.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(1560),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             IsDeleted = false,
                             PasswordHash = "admin123",
                             Role = "Admin",
-                            UpdatedAt = new DateTime(2026, 1, 9, 14, 31, 28, 201, DateTimeKind.Utc).AddTicks(1560),
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Username = "admin"
                         });
                 });
