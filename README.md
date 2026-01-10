@@ -118,6 +118,7 @@ dotnet run
 📝 Notlar
 Proje geliştirme sürecinde PostgreSQL bağlantı ve migration düzenlemeleri yapılmıştır.
 İlk commit sürecinde yaşanan bağlantı problemleri daha sonra düzeltilmiştir.
+Proje dotnet build BookManagement.sln komutu ile sorunsuz şekilde derlenmektedir.
 
 
 👩‍💻 Geliştirici
